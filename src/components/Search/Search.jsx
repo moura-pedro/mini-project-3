@@ -1,30 +1,37 @@
-import { useState, useEffect } from 'react'
-import { fetchArticles } from '../../helpers/fetchArticle'
+// src/components/Search.jsx
+import { useState, useEffect, useContext } from 'react'
+import { UserContext } from '../User/User'
 import './Search.css'
 
+// Utility functions for readability calculations
 const countSentences = (text) => {
   return (text.match(/[.!?:;]+/g) || []).length;
-}
+};
 
 const countWords = (text) => {
   return text.trim().split(/\s+/).filter(word => word.length > 0).length;
-}
+};
 
 const countSyllables = (text) => {
   const words = text.toLowerCase().split(/\s+/);
   return words.reduce((total, word) => {
+    // Count syllables based on the rules provided
     if (word.length <= 3) return total + 1;
+    
+    // Remove common suffixes
     word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
     word = word.replace(/^y/, '');
+    
+    // Count syllables based on vowel groups
     const syllables = word.match(/[aeiouy]{1,2}/g);
     return total + (syllables ? syllables.length : 1);
   }, 0);
-}
+};
 
 const computeFleschIndex = (syllables, words, sentences) => {
   if (sentences === 0 || words === 0) return 0;
   return 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words);
-}
+};
 
 const classifyReadability = (fleschIndex) => {
   if (fleschIndex >= 90) return '5th grade';
@@ -34,27 +41,32 @@ const classifyReadability = (fleschIndex) => {
   if (fleschIndex >= 50) return '10th to 12th grade';
   if (fleschIndex >= 30) return 'College';
   return 'College graduate';
-}
+};
 
 function Search({ setArticles }) {
-  const [gradeLevel, setGradeLevel] = useState('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allArticles, setAllArticles] = useState([]);
+  const [gradeLevel, setGradeLevel] = useState('all');
+  const { preferences, filterArticles } = useContext(UserContext);
 
   useEffect(() => {
     const loadArticles = async () => {
       try {
         setLoading(true);
-        const data = await fetchArticles();
-
+        const response = await fetch('/data/news_articles.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch articles');
+        }
+        const data = await response.json();
+        
         // Process articles with readability scores
         const processedArticles = data.map(article => {
           const sentences = countSentences(article.content);
           const words = countWords(article.content);
           const syllables = countSyllables(article.content);
           const fleschIndex = computeFleschIndex(syllables, words, sentences);
-
+          
           return {
             ...article,
             readabilityMetrics: {
@@ -68,50 +80,63 @@ function Search({ setArticles }) {
         });
 
         setAllArticles(processedArticles);
-        setArticles(processedArticles);
+        
+        // Apply initial filtering
+        const filteredArticles = applyFilters(processedArticles, gradeLevel, preferences);
+        setArticles(filteredArticles);
+        
         setLoading(false);
       } catch (err) {
+        console.error('Error loading articles:', err);
         setError(err.message);
         setLoading(false);
       }
     };
 
     loadArticles();
-  }, [setArticles]);
+  }, []);
 
-  const handleGradeLevelChange = (e) => {
-    const selectedLevel = e.target.value;
-    setGradeLevel(selectedLevel);
+  // Function to apply both topic and grade level filters
+  const applyFilters = (articles, currentGradeLevel, userPreferences) => {
+    // First apply topic filter
+    let filtered = filterArticles(articles);
 
-    const filteredArticles = selectedLevel === 'all'
-      ? allArticles
-      : allArticles.filter(article =>
-        article.readabilityMetrics.gradeLevel === selectedLevel
+    // Then apply grade level filter
+    if (currentGradeLevel !== 'all') {
+      filtered = filtered.filter(article => 
+        article.readabilityMetrics.gradeLevel === currentGradeLevel
       );
+    }
 
-    setArticles(filteredArticles);
+    return filtered;
   };
 
-  if (loading) return (
-    <div className="search-loading">
-      <div className="loading-spinner"></div>
-      <p>Loading articles...</p>
-    </div>
-  );
+  // Update articles when preferences or grade level changes
+  useEffect(() => {
+    const filtered = applyFilters(allArticles, gradeLevel, preferences);
+    setArticles(filtered);
+  }, [preferences, gradeLevel, allArticles]);
 
-  if (error) return (
-    <div className="search-error">
-      <p>Error loading articles: {error}</p>
-      <button onClick={() => window.location.reload()}>Retry</button>
-    </div>
-  );
+  const handleGradeLevelChange = (e) => {
+    const newGradeLevel = e.target.value;
+    setGradeLevel(newGradeLevel);
+  };
+
+  if (loading) {
+    return <div className="search-loading">Loading articles...</div>;
+  }
+
+  if (error) {
+    return <div className="search-error">Error: {error}</div>;
+  }
 
   return (
     <div className="search-container">
       <h2>Search Articles by Reading Level</h2>
+      
       <div className="search-controls">
-        <select
-          value={gradeLevel}
+        <select 
+          value={gradeLevel} 
           onChange={handleGradeLevelChange}
           className="grade-select"
         >
@@ -126,11 +151,19 @@ function Search({ setArticles }) {
         </select>
       </div>
 
-      <div className="search-stats">
-        <p>Showing {allArticles.length} articles</p>
-      </div>
+      {preferences.selectedTopics.length > 0 && (
+        <div className="active-filters">
+          <p>Filtering by topics: {preferences.selectedTopics.join(', ')}</p>
+        </div>
+      )}
+
+      {preferences.selectedTopics.length === 0 && (
+        <div className="search-notice">
+          <p>Showing all topics. Visit Preferences to filter by specific topics.</p>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default Search
+export default Search;
