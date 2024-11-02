@@ -41,6 +41,30 @@ body {
   padding: 2rem 0;
 }
 
+.no-articles {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray-500);
+  background-color: var(--gray-100);
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.search-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray-500);
+}
+
+.search-error {
+  text-align: center;
+  padding: 2rem;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
 @media (max-width: 768px) {
   .app {
     padding: 10px;
