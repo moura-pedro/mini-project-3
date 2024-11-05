@@ -1,61 +1,64 @@
-// src/components/ArticleCard.jsx
-import { useState } from 'react'
-import './ArticleCard.css'
+// src/components/ArticleCard/ArticleCard.jsx
+import { useState } from 'react';
+import './ArticleCard.css';
 
 function ArticleCard({ article, onClick }) {
-    const [imageError, setImageError] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
-    const formatDate = (dateString) => {
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
-        return new Date(dateString).toLocaleDateString('en-US', options);
-    };
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
 
-    const truncateText = (text, maxLength) => {
-        if (text.length <= maxLength) return text;
-        return text.substr(0, maxLength) + '...';
-    };
+  const truncateText = (text, maxLength) => {
+    if (!text || text.length <= maxLength) return text;
+    return text.substr(0, maxLength).trim() + '...';
+  };
 
-    return (
-        <div className="article-card" onClick={onClick}>
-            <div className="article-image-container">
-                {!imageError ? (
-                    <img
-                        src={article.large_image_url}
-                        alt={article.title}
-                        onError={() => setImageError(true)}
-                        className="article-image"
-                    />
-                ) : (
-                    <div className="article-image-fallback">
-                        <span>{article.domain}</span>
-                    </div>
-                )}
-                <div className="article-topic">{article.topic}</div>
-            </div>
+  return (
+    <div className="article-card" onClick={onClick}>
+      {/* Image Container */}
+      <div className="article-image-container">
+        {!imageError ? (
+          <img
+            src={article.large_image_url}
+            alt={article.title}
+            onError={() => setImageError(true)}
+            className="article-image"
+          />
+        ) : (
+          <div className="article-image-fallback" />
+        )}
+        <div className="article-topic">{article.topic}</div>
+      </div>
 
-            <div className="article-content">
-                <h3 className="article-title">{truncateText(article.title, 100)}</h3>
+      <div className="article-content">
+        {/* Source Link */}
+        <a href={article.link} className="article-source" onClick={e => e.stopPropagation()}>
+          {article.domain}
+        </a>
 
-                <div className="article-metadata">
-                    <div className="article-date">{formatDate(article.published_date)}</div>
-                    <div className="article-domain">{article.domain}</div>
-                </div>
+        {/* Title */}
+        <h3 className="article-title">
+          {truncateText(article.title, 100)}
+        </h3>
 
-                <p className="article-excerpt">
-                    {truncateText(article.content, 150)}
-                </p>
-
-                <div className="article-readability">
-                    Reading Level: {article.readabilityMetrics?.gradeLevel || 'Not analyzed'}
-                </div>
-            </div>
+        {/* Date */}
+        <div className="article-date">
+          {formatDate(article.published_date)}
         </div>
-    )
+
+        {/* Preview Text */}
+        <p className="article-preview">
+          {truncateText(article.content, 150)}
+        </p>
+      </div>
+    </div>
+  );
 }
 
-export default ArticleCard
+export default ArticleCard;
