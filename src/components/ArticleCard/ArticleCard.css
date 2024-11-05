@@ -1,52 +1,132 @@
+/* src/components/ArticleCard/ArticleCard.css */
 .article-card {
-    background: var(--card-background);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(45, 45, 55, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px; /* Reduced from 450px */
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+}
+
+.article-image-container {
+  position: relative;
+  width: 100%;
+  height: 160px; /* Reduced from 200px */
+}
+
+.article-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-image-fallback {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.article-topic {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(45, 45, 55, 0.95);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.article-content {
+  padding: 1rem; /* Reduced from 1.5rem */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Reduced from 0.75rem */
+  flex: 1;
+}
+
+.article-source {
+  color: #2dd4bf;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.article-source:hover {
+  text-decoration: underline;
+}
+
+.article-title {
+  font-size: 1rem; /* Reduced from 1.25rem */
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-date {
+  font-size: 0.75rem; /* Reduced from 0.875rem */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.article-preview {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Grid Container Styles (add to App.css or index.css) */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Reduced from 400px */
+  gap: 1.5rem; /* Reduced from 2rem */
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Ensure 4 columns on larger screens */
+@media (min-width: 1400px) {
+  .articles-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
-  
-  .article-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .articles-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .article-image-container {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    background: rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 900px) {
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .article-topic {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: rgba(124, 58, 237, 0.9);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
   }
-  
-  .article-content {
-    padding: 1.5rem;
-  }
-  
-  .article-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    line-height: 1.4;
-  }
-  
-  .article-metadata {
-    display: flex;
-    justify-content: space-between;
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-  }
+}
