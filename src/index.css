@@ -1,77 +1,28 @@
+/* index.css */
 :root {
-  --primary-color: #1a73e8;
-  --secondary-color: #4285f4;
-  --text-color: #202124;
-  --background-color: #ffffff;
-  --gray-100: #f8f9fa;
-  --gray-200: #e9ecef;
-  --gray-300: #dee2e6;
-  --gray-400: #ced4da;
-  --gray-500: #adb5bd;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --primary-color: #7c3aed;
+  --secondary-color: #3b82f6;
+  --background-color: #1a1b26;
+  --card-background: rgba(255, 255, 255, 0.1);
+  --text-color: rgba(255, 255, 255, 0.9);
+  --text-secondary: rgba(255, 255, 255, 0.6);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: var(--text-color);
   background-color: var(--background-color);
-  line-height: 1.5;
+  color: var(--text-color);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .app {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
-}
-
-.main-content {
-  margin-top: 2rem;
+  padding: 2rem;
 }
 
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
-  padding: 2rem 0;
-}
-
-.no-articles {
-  text-align: center;
-  padding: 2rem;
-  color: var(--gray-500);
-  background-color: var(--gray-100);
-  border-radius: 8px;
-  margin-top: 2rem;
-}
-
-.search-loading {
-  text-align: center;
-  padding: 2rem;
-  color: var(--gray-500);
-}
-
-.search-error {
-  text-align: center;
-  padding: 2rem;
-  color: #dc3545;
-  background-color: #f8d7da;
-  border-radius: 8px;
-  margin-top: 2rem;
-}
-
-@media (max-width: 768px) {
-  .app {
-    padding: 10px;
-  }
-
-  .articles-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+  padding: 1rem 0;
 }

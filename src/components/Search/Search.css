@@ -1,60 +1,28 @@
+/* Search.css */
 .search-container {
-    padding: 2rem 0;
-  }
-  
-  .search-container h2 {
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-  }
-  
-  .search-controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .grade-select {
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 1px solid var(--gray-300);
-    border-radius: 4px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    min-width: 200px;
-    cursor: pointer;
-  }
-  
-  .grade-select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
-  }
-  
-  .search-loading {
-    padding: 2rem;
-    text-align: center;
-    color: var(--gray-500);
-  }
-  
-  .search-error {
-    padding: 2rem;
-    text-align: center;
-    color: #dc3545;
-    background-color: #f8d7da;
-    border-radius: 4px;
-  }
-  
-  @media (max-width: 768px) {
-    .search-container {
-      padding: 1rem 0;
-    }
-  
-    .search-controls {
-      flex-direction: column;
-    }
-  
-    .grade-select {
-      width: 100%;
-    }
-  }
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.search-controls {
+  background: var(--card-background);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.grade-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.grade-select option {
+  background: var(--background-color);
+  color: var(--text-color);
+}
