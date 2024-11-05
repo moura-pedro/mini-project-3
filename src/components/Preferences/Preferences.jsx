@@ -1,33 +1,21 @@
-// src/components/Preferences.jsx
-import { useState, useEffect, useContext } from 'react';
+// src/components/Preferences/Preferences.jsx
+import { useState, useContext } from 'react';
 import { UserContext } from '../User/User';
 import './Preferences.css';
 
-function Preferences() {
+function Preferences({ onClose }) {
   const { preferences, setSelectedTopics } = useContext(UserContext);
-  const [availableTopics, setAvailableTopics] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadTopics = async () => {
-      try {
-        const response = await fetch('/data/news_articles.json');
-        const articles = await response.json();
-        
-        // Get unique topics and sort them
-        const topics = [...new Set(articles.map(article => article.topic))]
-          .sort((a, b) => a.localeCompare(b));
-        
-        setAvailableTopics(topics);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error loading topics:', err);
-        setLoading(false);
-      }
-    };
-
-    loadTopics();
-  }, []);
+  
+  const categories = [
+    { id: 'science', name: 'SCIENCE', icon: '🔬' },
+    { id: 'technology', name: 'TECHNOLOGY', icon: '💻' },
+    { id: 'health', name: 'HEALTH', icon: '⚕' },
+    { id: 'world', name: 'WORLD', icon: '🌎' },
+    { id: 'entertainment', name: 'ENTERTAINMENT', icon: '🎬' },
+    { id: 'sports', name: 'SPORTS', icon: '🏈' },
+    { id: 'business', name: 'BUSINESS', icon: '💼' },
+    { id: 'nation', name: 'NATION', icon: '🏛' }
+  ];
 
   const handleTopicToggle = (topic) => {
     const currentTopics = preferences.selectedTopics;
@@ -42,56 +30,32 @@ function Preferences() {
     setSelectedTopics(newTopics);
   };
 
-  const handleSelectAll = () => {
-    setSelectedTopics(availableTopics);
-  };
-
-  const handleClearAll = () => {
-    setSelectedTopics([]);
-  };
-
-  if (loading) {
-    return <div className="preferences-loading">Loading preferences...</div>;
-  }
-
   return (
-    <div className="preferences-container">
-      <h2>Your Preferences</h2>
-      
-      <section className="preferences-section">
-        <h3>Topics of Interest</h3>
-        <p className="section-description">
-          Select the topics you're interested in to filter articles.
-        </p>
-
-        <div className="topics-stats">
-          <span>
-            {preferences.selectedTopics.length} of {availableTopics.length} topics selected
-          </span>
-          <div className="topics-actions">
-            <button onClick={handleSelectAll} className="topic-action-btn">
-              Select All
-            </button>
-            <button onClick={handleClearAll} className="topic-action-btn">
-              Clear All
-            </button>
-          </div>
+    <div className="preferences-overlay">
+      <div className="preferences-modal">
+        <div className="preferences-header">
+          <h2>Select news categories to fine-tune your feed</h2>
+          <button className="close-button" onClick={onClose}>×</button>
         </div>
-
-        <div className="topics-grid">
-          {availableTopics.map(topic => (
-            <label key={topic} className="topic-checkbox">
-              <input
-                type="checkbox"
-                checked={preferences.selectedTopics.includes(topic)}
-                onChange={() => handleTopicToggle(topic)}
-              />
-              <span className="checkbox-custom"></span>
-              <span className="topic-name">{topic}</span>
-            </label>
+        
+        <div className="categories-grid">
+          {categories.map(category => (
+            <button
+              key={category.id}
+              className={`category-button ${
+                preferences.selectedTopics.includes(category.name) ? 'selected' : ''
+              }`}
+              onClick={() => handleTopicToggle(category.name)}
+            >
+              <span className="category-icon">{category.icon}</span>
+              <span className="category-name">{category.name}</span>
+              {preferences.selectedTopics.includes(category.name) && (
+                <span className="check-icon">✓</span>
+              )}
+            </button>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }
