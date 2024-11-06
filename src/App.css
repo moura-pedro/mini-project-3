@@ -2,6 +2,7 @@
   min-height: 100vh;
   padding: 2rem;
   background-color: var(--background-color);
+  position: relative;
 }
 
 .main-content {
@@ -26,7 +27,7 @@
 }
 
 .preferences-button {
-  position:fixed;
+  position: absolute;
   top: 1rem;
   right: 1rem;
   padding: 0.5rem 1rem;

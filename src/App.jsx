@@ -1,10 +1,10 @@
-// src/App.jsx
 import { useState } from 'react'
 import Search from './components/Search/Search'
 import ArticleCard from './components/ArticleCard/ArticleCard'
 import FullArticle from './components/FullArticle/FullArticle'
 import Preferences from './components/Preferences/Preferences'
 import { UserProvider } from './components/User/User'
+import './App.css';
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -20,23 +20,22 @@ function App() {
         )}
 
         {/* Preferences Button */}
-        <button 
+        <button
           className="preferences-button"
           onClick={() => setShowPreferences(true)}
         >
           Preferences
         </button>
-        
+
         {/* Main Content */}
         <main className="main-content">
           {selectedArticle ? (
             // Full Article View
-            <FullArticle 
-              article={selectedArticle} 
-              onBack={() => setSelectedArticle(null)} 
+            <FullArticle
+              article={selectedArticle}
+              onBack={() => setSelectedArticle(null)}
             />
           ) : (
-            // Articles List View
             <>
               <Search setArticles={setArticles} />
               <div className="articles-grid">

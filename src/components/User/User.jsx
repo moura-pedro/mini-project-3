@@ -28,14 +28,14 @@ export function UserProvider({ children }) {
 
   const filterArticles = (articles) => {
     if (!articles) return [];
-    
+
     // If no topics are selected, show all articles
     if (preferences.selectedTopics.length === 0) {
       return articles;
     }
 
     // Filter by selected topics
-    return articles.filter(article => 
+    return articles.filter(article =>
       preferences.selectedTopics.includes(article.topic)
     );
   };

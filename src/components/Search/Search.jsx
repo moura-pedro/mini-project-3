@@ -1,4 +1,3 @@
-// src/components/Search.jsx
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../User/User'
 import './Search.css'
@@ -18,11 +17,11 @@ const countSyllables = (text) => {
     // Count syllables based on the rules from a youtube video:
     // https://www.youtube.com/watch?v=oPNAYXxxRUs&t=127s
     if (word.length <= 3) return total + 1;
-    
+
     // Remove common suffixes
     word = word.replace(/(?:[^aeiouy]es|ed|[^aeiouy]e)$/, '');
     word = word.replace(/^y/, '');
-    
+
     // Count syllables based on vowel groups
     const syllables = word.match(/[aeiouy]{1,2}/g);
     return total + (syllables ? syllables.length : 1);
@@ -60,14 +59,14 @@ function Search({ setArticles }) {
           throw new Error('Failed to fetch articles');
         }
         const data = await response.json();
-        
+
         // Process articles with readability scores
         const processedArticles = data.map(article => {
           const sentences = countSentences(article.content);
           const words = countWords(article.content);
           const syllables = countSyllables(article.content);
           const fleschIndex = computeFleschIndex(syllables, words, sentences);
-          
+
           return {
             ...article,
             readabilityMetrics: {
@@ -81,11 +80,11 @@ function Search({ setArticles }) {
         });
 
         setAllArticles(processedArticles);
-        
+
         // Apply initial filtering
         const filteredArticles = applyFilters(processedArticles, gradeLevel, preferences);
         setArticles(filteredArticles);
-        
+
         setLoading(false);
       } catch (err) {
         console.error('Error loading articles:', err);
@@ -98,13 +97,13 @@ function Search({ setArticles }) {
   }, []);
 
   // Function to apply both topic and grade level filters
-  const applyFilters = (articles, currentGradeLevel, userPreferences) => {
+  const applyFilters = (articles, currentGradeLevel) => {
     // First apply topic filter
     let filtered = filterArticles(articles);
 
     // Then apply grade level filter
     if (currentGradeLevel !== 'all') {
-      filtered = filtered.filter(article => 
+      filtered = filtered.filter(article =>
         article.readabilityMetrics.gradeLevel === currentGradeLevel
       );
     }
@@ -133,11 +132,14 @@ function Search({ setArticles }) {
 
   return (
     <div className="search-container">
-      <h2>Search Articles by Reading Level</h2>
-      
+      <div className="search-logo">
+        <h2>ArticleSearch</h2>
+        <h3>by Group 7</h3>
+      </div>
+
       <div className="search-controls">
-        <select 
-          value={gradeLevel} 
+        <select
+          value={gradeLevel}
           onChange={handleGradeLevelChange}
           className="grade-select"
         >
@@ -152,6 +154,7 @@ function Search({ setArticles }) {
         </select>
       </div>
 
+      {/*  For debugging  */}
       {preferences.selectedTopics.length > 0 && (
         <div className="active-filters">
           <p>Filtering by topics: {preferences.selectedTopics.join(', ')}</p>

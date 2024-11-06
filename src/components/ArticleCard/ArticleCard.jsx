@@ -1,4 +1,3 @@
-// src/components/ArticleCard/ArticleCard.jsx
 import { useState } from 'react';
 import './ArticleCard.css';
 

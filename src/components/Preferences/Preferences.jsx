@@ -1,11 +1,10 @@
-// src/components/Preferences/Preferences.jsx
 import { useState, useContext } from 'react';
 import { UserContext } from '../User/User';
 import './Preferences.css';
 
 function Preferences({ onClose }) {
   const { preferences, setSelectedTopics } = useContext(UserContext);
-  
+
   const categories = [
     { id: 'science', name: 'SCIENCE', icon: '🔬' },
     { id: 'technology', name: 'TECHNOLOGY', icon: '💻' },
@@ -20,13 +19,13 @@ function Preferences({ onClose }) {
   const handleTopicToggle = (topic) => {
     const currentTopics = preferences.selectedTopics;
     let newTopics;
-    
+
     if (currentTopics.includes(topic)) {
       newTopics = currentTopics.filter(t => t !== topic);
     } else {
       newTopics = [...currentTopics, topic];
     }
-    
+
     setSelectedTopics(newTopics);
   };
 
@@ -37,14 +36,13 @@ function Preferences({ onClose }) {
           <h2>Select news categories to fine-tune your feed</h2>
           <button className="close-button" onClick={onClose}>×</button>
         </div>
-        
+
         <div className="categories-grid">
           {categories.map(category => (
             <button
               key={category.id}
-              className={`category-button ${
-                preferences.selectedTopics.includes(category.name) ? 'selected' : ''
-              }`}
+              className={`category-button ${preferences.selectedTopics.includes(category.name) ? 'selected' : ''
+                }`}
               onClick={() => handleTopicToggle(category.name)}
             >
               <span className="category-icon">{category.icon}</span>
