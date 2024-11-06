@@ -1,4 +1,3 @@
-// src/components/FullArticle/FullArticle.jsx
 import { useMemo } from 'react';
 import './FullArticle.css';
 
@@ -20,15 +19,15 @@ function FullArticle({ article, onBack }) {
     <div className="full-article">
       {/* Back Button */}
       <button onClick={onBack} className="back-button">
-        <svg 
-          viewBox="0 0 24 24" 
-          width="24" 
-          height="24" 
-          stroke="currentColor" 
-          strokeWidth="2" 
+        <svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          stroke="currentColor"
+          strokeWidth="2"
           fill="none"
         >
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
+          <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
         Back to Articles
       </button>
@@ -37,8 +36,8 @@ function FullArticle({ article, onBack }) {
       <article className="full-article-content">
         {/* Article Image */}
         <div className="full-article-image-container">
-          <img 
-            src={article.large_image_url} 
+          <img
+            src={article.large_image_url}
             alt={article.title}
             onError={(e) => {
               e.target.onerror = null;

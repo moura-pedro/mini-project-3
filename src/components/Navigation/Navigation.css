@@ -1,48 +1,47 @@
-/* Navigation.css */
 .navigation {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    margin-bottom: 2rem;
-  }
-  
-  .nav-brand h1 {
-    font-size: 1.8rem;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .nav-brand h1::before {
-    content: "";
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(45deg, #7c3aed, #3b82f6);
-    border-radius: 6px;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .nav-link {
-    padding: 0.5rem 1rem;
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s;
-  }
-  
-  .nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.nav-brand h1 {
+  font-size: 1.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-brand h1::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(45deg, #7c3aed, #3b82f6);
+  border-radius: 6px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

@@ -56,7 +56,8 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 10px;}
+  gap: 10px;
+}
 
 .article-source {
   color: #2dd4bf;
@@ -69,7 +70,8 @@
 }
 
 .article-title {
-  font-size: 1.25rem; /* Reduced from 1.25rem */
+  font-size: 1.25rem;
+  /* Reduced from 1.25rem */
   font-weight: 100;
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
@@ -78,7 +80,8 @@
 }
 
 .article-date {
-  font-size: 0.75rem; /* Reduced from 0.875rem */
+  font-size: 0.75rem;
+  /* Reduced from 0.875rem */
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -93,8 +96,10 @@
 /* Grid Container Styles (add to App.css or index.css) */
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Reduced from 400px */
-  gap: 1.5rem; /* Reduced from 2rem */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* Reduced from 400px */
+  gap: 1.5rem;
+  /* Reduced from 2rem */
   padding: 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
