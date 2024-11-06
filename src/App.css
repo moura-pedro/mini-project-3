@@ -1,4 +1,3 @@
-/* src/App.css */
 .app {
   min-height: 100vh;
   padding: 2rem;
@@ -27,7 +26,7 @@
 }
 
 .preferences-button {
-  position: fixed;
+  position:fixed;
   top: 1rem;
   right: 1rem;
   padding: 0.5rem 1rem;

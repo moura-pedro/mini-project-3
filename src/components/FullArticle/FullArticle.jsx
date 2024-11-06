@@ -34,9 +34,9 @@ function FullArticle({ article, onBack }) {
       </button>
 
       {/* Main Article Content */}
-      <article className="article-content">
+      <article className="full-article-content">
         {/* Article Image */}
-        <div className="article-image-container">
+        <div className="full-article-image-container">
           <img 
             src={article.large_image_url} 
             alt={article.title}
@@ -48,21 +48,21 @@ function FullArticle({ article, onBack }) {
         </div>
 
         {/* Article Source Link */}
-        <a href={article.link} className="article-link" target="_blank" rel="noopener noreferrer">
+        <a href={article.link} className="full-article-link" target="_blank" rel="noopener noreferrer">
           {article.domain}
         </a>
 
         {/* Article Title */}
-        <h2 className="article-title">{article.title}</h2>
+        <h2 className="full-article-title">{article.title}</h2>
 
         {/* Article Date */}
-        <div className="article-date">{formatDate(article.published_date)}</div>
+        <div className="full-article-date">{formatDate(article.published_date)}</div>
 
         {/* Article Type/Topic */}
-        <div className="article-type">{article.topic}</div>
+        <div className="full-article-type">{article.topic}</div>
 
         {/* Article Content */}
-        <div className="article-text">
+        <div className="full-article-text">
           {article.content.split('\n\n').map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}

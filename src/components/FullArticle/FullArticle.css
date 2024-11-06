@@ -1,6 +1,5 @@
-/* src/components/FullArticle/FullArticle.css */
 .full-article {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 2rem;
   color: rgba(255, 255, 255, 0.9);
@@ -26,38 +25,40 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.article-content {
+.full-article-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
 
-.article-image-container {
+.full-article-image-container {
   width: 100%;
   max-height: 400px;
   overflow: hidden;
   margin-bottom: 1rem;
+  text-align: center;
+
 }
 
-.article-image-container img {
-  width: 100%;
-  height: 100%;
+.full-article-image-container img {
+  width: 60%;
+  height: 60%;
   object-fit: cover;
 }
 
-.article-link {
+.full-article-link {
   color: #2dd4bf;
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.2s;
 }
 
-.article-link:hover {
+.full-article-link:hover {
   color: #14b8a6;
 }
 
-.article-title {
+.full-article-title {
   font-size: 1.75rem;
   font-weight: 600;
   text-align: center;
@@ -65,12 +66,12 @@
   margin: 0;
 }
 
-.article-date {
+.full-article-date {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
 }
 
-.article-type {
+.full-article-type {
   padding: 0.25rem 1rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
@@ -78,7 +79,7 @@
   text-transform: uppercase;
 }
 
-.article-text {
+.full-article-text {
   margin: 2rem 0;
   line-height: 1.8;
   font-size: 1.125rem;
@@ -86,7 +87,7 @@
   width: 100%;
 }
 
-.article-text p {
+.full-article-text p {
   margin-bottom: 1.5rem;
 }
 
@@ -126,11 +127,11 @@
     padding: 1rem;
   }
 
-  .article-title {
+  .full-article-title {
     font-size: 1.5rem;
   }
 
-  .article-text {
+  .full-article-text {
     font-size: 1rem;
   }
 }

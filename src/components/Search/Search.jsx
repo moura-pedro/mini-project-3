@@ -15,11 +15,12 @@ const countWords = (text) => {
 const countSyllables = (text) => {
   const words = text.toLowerCase().split(/\s+/);
   return words.reduce((total, word) => {
-    // Count syllables based on the rules provided
+    // Count syllables based on the rules from a youtube video:
+    // https://www.youtube.com/watch?v=oPNAYXxxRUs&t=127s
     if (word.length <= 3) return total + 1;
     
     // Remove common suffixes
-    word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+    word = word.replace(/(?:[^aeiouy]es|ed|[^aeiouy]e)$/, '');
     word = word.replace(/^y/, '');
     
     // Count syllables based on vowel groups
@@ -39,7 +40,7 @@ const classifyReadability = (fleschIndex) => {
   if (fleschIndex >= 70) return '7th grade';
   if (fleschIndex >= 60) return '8th & 9th grade';
   if (fleschIndex >= 50) return '10th to 12th grade';
-  if (fleschIndex >= 30) return 'College';
+  if (fleschIndex > 30) return 'College';
   return 'College graduate';
 };
 
