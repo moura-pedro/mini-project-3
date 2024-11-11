@@ -19,7 +19,7 @@ function ArticleCard({ article, onClick }) {
   };
 
   return (
-    <div className="article-card" onClick={onClick}>
+    <article className="article-card" onClick={onClick}>
       {/* Image Container */}
       <div className="article-image-container">
         {!imageError ? (
@@ -56,7 +56,7 @@ function ArticleCard({ article, onClick }) {
           {truncateText(article.content, 150)}
         </p>
       </div>
-    </div>
+    </article>
   );
 }
 
