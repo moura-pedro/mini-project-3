@@ -1,9 +1,12 @@
 import { useState } from 'react'
+
 import Search from './components/Search/Search'
 import ArticleCard from './components/ArticleCard/ArticleCard'
 import FullArticle from './components/FullArticle/FullArticle'
 import Preferences from './components/Preferences/Preferences'
+import Navigation from './components/Navigation/Navigation';
 import { UserProvider } from './components/User/User'
+
 import './App.css';
 
 function App() {
@@ -19,13 +22,9 @@ function App() {
           <Preferences onClose={() => setShowPreferences(false)} />
         )}
 
-        {/* Preferences Button */}
-        <button
-          className="preferences-button"
-          onClick={() => setShowPreferences(true)}
-        >
-          Preferences
-        </button>
+        {/* Navigation component */}
+        <Navigation setShowPreferences={setShowPreferences} />
+
 
         {/* Main Content */}
         <main className="main-content">

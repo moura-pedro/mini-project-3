@@ -1,28 +1,19 @@
-import './Navigation.css'
+import './Navigation.css';
 
-function Navigation({ setCurrentView }) {
-    return (
-        <nav className="navigation">
-            <div className="nav-brand">
-                <h1>News Search</h1>
-            </div>
+function Navigation({ setShowPreferences }) {
+  return (
+    <nav className="navigation">
 
-            <div className="nav-links">
-                <button
-                    onClick={() => setCurrentView('search')}
-                    className="nav-link"
-                >
-                    Search
-                </button>
-                <button
-                    onClick={() => setCurrentView('preferences')}
-                    className="nav-link"
-                >
-                    Preferences
-                </button>
-            </div>
-        </nav>
-    )
+      <div className="nav-links">
+        <button
+          onClick={() => setShowPreferences(true)}
+          className="nav-link"
+        >
+          Preferences
+        </button>
+      </div>
+    </nav>
+  );
 }
 
-export default Navigation
+export default Navigation;

@@ -51,15 +51,14 @@ function Search({ setArticles }) {
   const { preferences, filterArticles } = useContext(UserContext);
 
   useEffect(() => {
-    const loadArticles = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/data/news_articles.json');
+    fetch('/data/news_articles.json')
+      .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch articles');
         }
-        const data = await response.json();
-
+        return response.json();
+      })
+      .then(data => {
         // Process articles with readability scores
         const processedArticles = data.map(article => {
           const sentences = countSentences(article.content);
@@ -74,26 +73,24 @@ function Search({ setArticles }) {
               gradeLevel: classifyReadability(fleschIndex),
               sentences,
               words,
-              syllables
-            }
+              syllables,
+            },
           };
         });
 
         setAllArticles(processedArticles);
 
         // Apply initial filtering
-        const filteredArticles = applyFilters(processedArticles, gradeLevel, preferences);
+        const filteredArticles = applyFilters(processedArticles, gradeLevel);
         setArticles(filteredArticles);
 
         setLoading(false);
-      } catch (err) {
+      })
+      .catch(err => {
         console.error('Error loading articles:', err);
         setError(err.message);
         setLoading(false);
-      }
-    };
-
-    loadArticles();
+      });
   }, []);
 
   // Function to apply both topic and grade level filters
